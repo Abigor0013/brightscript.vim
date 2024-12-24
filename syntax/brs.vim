@@ -17,6 +17,9 @@ endif
 " BRS is case insensitive
 syn case ignore
 
+" namespace m
+syn keyword brsScope m
+
 syn keyword brsConditional If Then ElseIf Else EndIf End
 
 syn keyword brsOperator And Or Not
@@ -69,7 +72,16 @@ syn keyword brsTypes Integer Float Double Boolean String Object Dynamic
 
 syn keyword brsConst Invalid
 
-syn keyword brsTodo contained	TODO
+" syn keyword brsTodo contained	TODO
+syn keyword brsTodo
+            \ TODO
+            \ NB
+            \ FIXME
+            \ NOTE
+            \ FYI
+            \ BUG
+            \ XXX
+            \ contained
 
 syn keyword brsMethods isListItemSelected isScreenClosed isListFocused isListSelected isListItemFocused isButtonPressed isPlaybackPosition isRemoteKeyPressed isRequestSucceeded isRequestFailed isRequestInterrupted isStatusMessage isPaused isResumed isCleared isPartialResult isFullResult isAdSelected isStorageDeviceInserted isStorageDeviceRemoved isStreamStarted GetType GetIndex GetMessage GetData GetInfo
 
@@ -92,42 +104,42 @@ syn region  brsComment		start="\(^\|\s\)\'"   end="$" contains=brsTodo
 syn match   brsLineNumber	"^\d\+\(\s\|$\)"
 syn match   brsTypeSpecifier  "[a-zA-Z0-9][\$%&!#]"ms=s+1
 syn match   brsTypeSpecifier  "#[a-zA-Z0-9]"me=e-1
-
+ 
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
 " For version 5.8 and later: only when an item doesn't have highlighting yet
 if version >= 508 || !exists("did_brs_syntax_inits")
 
-	if version < 508
-		let did_brs_syntax_inits = 1
-		command -nargs=+ HiLink hi link <args>
-	else
-		command -nargs=+ HiLink hi def link <args>
-	endif
+    if version < 508
+            let did_brs_syntax_inits = 1
+            command -nargs=+ HiLink hi link <args>
+    else
+            command -nargs=+ HiLink hi def link <args>
+    endif
 
-	HiLink brsBoolean		Boolean
-	HiLink brsLineNumber	Comment
-	HiLink brsComment		Comment
-	HiLink brsConditional	Conditional
-	HiLink brsConst			Constant
-	HiLink brsDefine		Constant
-	HiLink brsError			Error
-	HiLink brsFunction		Identifier
-	HiLink brsIdentifier	Identifier
-	HiLink brsNumber		Number
-	HiLink brsFloat			Float
-	HiLink brsMethods		PreProc
-	HiLink brsOperator		Operator
-	HiLink brsRepeat		Repeat
-	HiLink brsString		String
-	HiLink brsStatement		Statement
-	HiLink brsKeyword		Statement
-	HiLink brsEvents		Special
-	HiLink brsTodo			Todo
-	HiLink brsTypes			Type
-	HiLink brsTypeSpecifier	Type
+    HiLink brsBoolean		Boolean
+    HiLink brsLineNumber	Comment
+    HiLink brsComment		Comment
+    HiLink brsConditional	Conditional
+    HiLink brsConst		Constant
+    HiLink brsDefine		Constant
+    HiLink brsError		Error
+    HiLink brsFunction		Identifier
+    HiLink brsIdentifier	Identifier
+    HiLink brsNumber		Number
+    HiLink brsFloat		Float
+    HiLink brsMethods		PreProc
+    HiLink brsOperator		Operator
+    HiLink brsRepeat		Repeat
+    HiLink brsString		String
+    HiLink brsStatement		Statement
+    HiLink brsKeyword		Statement
+    HiLink brsEvents		Special
+    HiLink brsTodo		Todo
+    HiLink brsTypes		Type
+    HiLink brsTypeSpecifier	Type
 
-	delcommand HiLink
+    delcommand HiLink
 endif
 
 let b:current_syntax = "brs"
