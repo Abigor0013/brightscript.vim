@@ -20,7 +20,13 @@ syn case ignore
 " namespace m
 syn keyword brsScope m
 
-syn keyword brsConditional If Then ElseIf Else EndIf End
+" syn keyword brsConditional If Then ElseIf Else EndIf End
+" conditional statements {{{
+syn keyword brsConditional
+    \ if
+    \ then
+syn match brsConditional /\v\c(end|else) ?if/
+syn match brsConditional /\v\c<else>/
 
 syn keyword brsOperator And Or Not
 syn keyword brsBoolean  True False
@@ -46,6 +52,17 @@ syn match brsOperator "@"
 syn match brsOperator "{"
 syn match brsOperator ":"
 syn match brsOperator "}"
+
+" function calls
+syn region functContent matchgroup=brsMethods start=/\v\.?<\w+\(/ end=/\v\)/ contains=ALL
+
+" function declaration {{{
+syn keyword brsFunction
+    \ sub
+    \ function
+syn match brsFunction /\v\c<(sub|function)>.*/ contains=brsMethods
+syn match brsFunction /\v\c<end ?sub>/
+syn match brsFunction /\v\c<end function>/
 
 syn keyword brsFunction For Each In EndFor
 syn keyword brsFunction Function EndFunction
@@ -120,15 +137,18 @@ if version >= 508 || !exists("did_brs_syntax_inits")
     HiLink brsBoolean		Boolean
     HiLink brsLineNumber	Comment
     HiLink brsComment		Comment
-    HiLink brsConditional	Conditional
+    HiLink brsConditional	Identifier
+    " HiLink brsConditional	Conditional
     HiLink brsConst		Constant
     HiLink brsDefine		Constant
     HiLink brsError		Error
     HiLink brsFunction		Identifier
     HiLink brsIdentifier	Identifier
+    HiLink brsScope     	Identifier
     HiLink brsNumber		Number
     HiLink brsFloat		Float
-    HiLink brsMethods		PreProc
+    HiLink brsMethods		Conditional
+    " HiLink brsMethods		PreProc
     HiLink brsOperator		Operator
     HiLink brsRepeat		Repeat
     HiLink brsString		String
