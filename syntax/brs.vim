@@ -20,6 +20,11 @@ syn case ignore
 " namespace m
 syn keyword brsScope m
 
+" breakpoints
+syn keyword brsFunction
+        \ debugger
+        \ contained
+
 " syn keyword brsConditional If Then ElseIf Else EndIf End
 " conditional statements {{{
 syn keyword brsConditional
@@ -63,6 +68,7 @@ syn keyword brsFunction
 syn match brsFunction /\v\c<(sub|function)>.*/ contains=brsMethods
 syn match brsFunction /\v\c<end ?sub>/
 syn match brsFunction /\v\c<end function>/
+syn match brsFunction /\v\c<end for>/
 
 syn keyword brsFunction For Each In EndFor
 syn keyword brsFunction Function EndFunction
@@ -94,10 +100,15 @@ syn keyword brsTodo
             \ TODO
             \ NB
             \ FIXME
+            \ FIXIT
             \ NOTE
             \ FYI
             \ BUG
             \ XXX
+            \ contained
+
+syn keyword brsError
+            \ DEBUGGER
             \ contained
 
 syn keyword brsMethods isListItemSelected isScreenClosed isListFocused isListSelected isListItemFocused isButtonPressed isPlaybackPosition isRemoteKeyPressed isRequestSucceeded isRequestFailed isRequestInterrupted isStatusMessage isPaused isResumed isCleared isPartialResult isFullResult isAdSelected isStorageDeviceInserted isStorageDeviceRemoved isStreamStarted GetType GetIndex GetMessage GetData GetInfo
@@ -116,11 +127,14 @@ syn match  brsFloat		"[-+]\=\<\.\d\+\([eE][\-+]\=\d\+\)\="
 
 " String and Character contstants
 syn region  brsString		start=+"+  end=+"\|$+
-syn region  brsComment		start="\(^\|\s\)REM \s*" end="$" contains=brsTodo
-syn region  brsComment		start="\(^\|\s\)\'"   end="$" contains=brsTodo
+syn region  brsComment		start="\(^\|\s\)REM \s*" end="$" contains=brsTodo,brsError
+syn region  brsComment		start="\(^\|\s\)\'"   end="$" contains=brsTodo,brsError
 syn match   brsLineNumber	"^\d\+\(\s\|$\)"
 syn match   brsTypeSpecifier  "[a-zA-Z0-9][\$%&!#]"ms=s+1
 syn match   brsTypeSpecifier  "#[a-zA-Z0-9]"me=e-1
+
+" syn region brsString start=/"/ end=/"/ contains=brsSubStr,@Spell oneline 
+" syn match brsSubStr /\v\c\{[0-9]+\}/ contained
  
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
